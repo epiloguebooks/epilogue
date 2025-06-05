@@ -1,6 +1,1 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import HomePage from "./HomePage";
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<HomePage />);
+import React from "react"; import ReactDOM from "react-dom/client"; ReactDOM.createRoot(document.getElementById("root")).render(<h1>Hello, Epilogue!</h1>);
