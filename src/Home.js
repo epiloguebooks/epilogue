@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -37,9 +37,16 @@ export default function Home() {
           borderRadius: "5px",
           cursor: "pointer"
         }}>
-          Take a Quiz
-        </button>
-      </main>
-    </div>
-  );
-}
+ <Link to="/quiz">
+  <button style={{
+    padding: "0.75rem 1.5rem",
+    fontSize: "1rem",
+    backgroundColor: "#333",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  }}>
+    Take a Quiz
+  </button>
+</Link>
