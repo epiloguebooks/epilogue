@@ -6,105 +6,35 @@ const quizzes = {
   "The Women": [
     {
       question: "Who is the main character in *The Women*?",
-      options: ["Frances McGrath", "Frankie McGrath", "Franny Malone", "Faye Montgomery"],
-      answer: "Frankie McGrath"
+      options: ["Frances", "Ellie", "Hannah", "Kate"],
+      answer: "Frances"
     },
     {
-      question: "What is Frankie’s profession?",
-      options: ["Writer", "Nurse", "Lawyer", "Soldier"],
-      answer: "Nurse"
-    },
-    {
-      question: "In what war is *The Women* set?",
-      options: ["World War II", "Vietnam War", "Korean War", "Gulf War"],
+      question: "What war is *The Women* centered around?",
+      options: ["WWI", "WWII", "Vietnam War", "Korean War"],
       answer: "Vietnam War"
     },
     {
-      question: "What major theme does the book explore?",
-      options: ["Time travel", "The role of women in war", "Space exploration", "Economic collapse"],
-      answer: "The role of women in war"
-    },
-    {
-      question: "What branch of the military does Frankie serve in?",
-      options: ["Air Force", "Army", "Navy", "Marines"],
-      answer: "Army"
-    },
-    {
-      question: "Who is Frankie’s brother?",
-      options: ["Billy", "Thomas", "Mike", "Jamie"],
-      answer: "Billy"
-    },
-    {
-      question: "What challenges does Frankie face after returning home?",
-      options: ["Physical illness", "Legal trouble", "Lack of recognition", "Fame"],
-      answer: "Lack of recognition"
-    },
-    {
-      question: "Which real-world issue does *The Women* highlight?",
-      options: ["Climate change", "Post-traumatic stress disorder", "Digital addiction", "Artificial intelligence"],
-      answer: "Post-traumatic stress disorder"
-    },
-    {
-      question: "Where is Frankie from originally?",
-      options: ["New York", "California", "Texas", "Alabama"],
-      answer: "California"
-    },
-    {
-      question: "What genre best describes *The Women*?",
-      options: ["Historical fiction", "Science fiction", "Mystery", "Romance"],
-      answer: "Historical fiction"
+      question: "What role does Frances play during the war?",
+      options: ["Soldier", "Doctor", "Nurse", "Pilot"],
+      answer: "Nurse"
     }
   ],
   "Twilight": [
     {
       question: "Who is the author of *Twilight*?",
-      options: ["Suzanne Collins", "Veronica Roth", "Stephenie Meyer", "Cassandra Clare"],
+      options: ["Veronica Roth", "Stephenie Meyer", "Suzanne Collins", "J.K. Rowling"],
       answer: "Stephenie Meyer"
     },
     {
-      question: "What supernatural creature is Edward Cullen?",
-      options: ["Vampire", "Werewolf", "Witch", "Ghost"],
+      question: "What is Edward Cullen?",
+      options: ["Werewolf", "Vampire", "Wizard", "Human"],
       answer: "Vampire"
     },
     {
-      question: "What is Bella Swan’s hometown?",
-      options: ["Phoenix", "Forks", "Portland", "Salem"],
-      answer: "Forks"
-    },
-    {
-      question: "Which member of the Cullen family can see the future?",
-      options: ["Emmett", "Jasper", "Rosalie", "Alice"],
-      answer: "Alice"
-    },
-    {
-      question: "Who is Jacob Black?",
-      options: ["A teacher", "A werewolf", "A vampire hunter", "Bella’s cousin"],
-      answer: "A werewolf"
-    },
-    {
-      question: "What ability does Edward have?",
-      options: ["Telepathy", "Invisibility", "Super speed", "Fire control"],
-      answer: "Telepathy"
-    },
-    {
-      question: "What event brings Bella and Edward closer at school?",
-      options: ["Science project", "School dance", "Biology class", "Art competition"],
-      answer: "Biology class"
-    },
-    {
-      question: "What does Bella discover about the Cullens?",
-      options: ["They are spies", "They are witches", "They are vampires", "They are aliens"],
-      answer: "They are vampires"
-    },
-    {
-      question: "Who tries to attack Bella at the end of the first book?",
-      options: ["Victoria", "James", "Laurent", "Charlie"],
-      answer: "James"
-    },
-    {
-      question: "What genre is *Twilight*?",
-      options: ["Biography", "Historical fiction", "Paranormal romance", "Comedy"],
-      answer: "Paranormal romance"
+      question: "Where is *Twilight* set?",
+      options: ["Forks, Washington", "Phoenix, Arizona", "Seattle, Washington", "Portland, Oregon"],
+      answer: "Forks, Washington"
     }
   ]
 };
@@ -115,58 +45,49 @@ function useQuery() {
 
 export default function Quiz() {
   const query = useQuery();
-  const rawBook = query.get('book');
+  const bookTitle = query.get("book");
 
-  const normalizedBook = Object.keys(quizzes).find(
-    title => title.toLowerCase() === rawBook?.toLowerCase()
-  );
-
-  const questions = quizzes[normalizedBook];
-
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const questions = quizzes[bookTitle];
+  const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   if (!questions) {
     return (
-      <div className="p-6 text-center text-red-600 font-semibold">
-        No quiz found for "<strong>{rawBook}</strong>". Please check the title and try again.
+      <div className="p-6 text-center">
+        <h2 className="text-2xl font-bold mb-2">No quiz found for "{bookTitle}".</h2>
+        <p className="text-gray-600">Please check the title and try again.</p>
       </div>
     );
   }
 
-  const handleAnswer = (selectedOption) => {
-    if (selectedOption === questions[currentQuestion].answer) {
+  const handleAnswer = (choice) => {
+    if (choice === questions[current].answer) {
       setScore(score + 1);
     }
 
-    const next = currentQuestion + 1;
-    if (next < questions.length) {
-      setCurrentQuestion(next);
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1);
     } else {
-      setShowScore(true);
+      setShowResults(true);
     }
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto text-center">
-      <h1 className="text-2xl font-bold mb-4">{normalizedBook} Quiz</h1>
-      {showScore ? (
-        <div className="text-lg font-semibold">
-          You scored {score} out of {questions.length}!
+    <div className="p-6 max-w-xl mx-auto">
+      {showResults ? (
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">You scored {score} out of {questions.length}!</h2>
         </div>
       ) : (
         <div>
-          <h2 className="text-lg font-medium mb-2">
-            Question {currentQuestion + 1} of {questions.length}
-          </h2>
-          <p className="mb-4">{questions[currentQuestion].question}</p>
-          <div className="grid gap-3">
-            {questions[currentQuestion].options.map((option, index) => (
+          <h2 className="text-xl font-semibold mb-2">{questions[current].question}</h2>
+          <div className="grid gap-2">
+            {questions[current].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswer(option)}
-                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded"
               >
                 {option}
               </button>
