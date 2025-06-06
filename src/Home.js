@@ -3,7 +3,6 @@ import React from "react";
 const popularQuizzes = [
   {
     title: "Twilight",
-    cover: "https://covers.openlibrary.org/b/id/8226191-L.jpg",
   },
 ];
 
