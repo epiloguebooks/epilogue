@@ -2,9 +2,15 @@
 import React from "react";
 
 const popularQuizzes = [
-  { title: "The Women", cover: "https://covers.openlibrary.org/b/id/12345-M.jpg" },
-  { title: "Twilight", cover: "https://covers.openlibrary.org/b/id/67890-M.jpg" },
-  { title: "Little Women", cover: "https://covers.openlibrary.org/b/id/54321-M.jpg" },
+  {
+    title: "The Women",
+    cover: "https://covers.openlibrary.org/b/id/12345-M.jpg",
+  },
+  {
+    title: "Twilight",
+    cover: "https://covers.openlibrary.org/b/id/67890-M.jpg",
+  },
+  // Add more quiz titles here
 ];
 
 export default function Home() {
