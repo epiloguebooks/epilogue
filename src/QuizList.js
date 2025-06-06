@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 const quizzes = [
   "The Women",
   "Twilight",
-  // Add more quiz titles here later
+  // Add more quiz titles here
 ];
 
 export default function QuizList() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
-  const filteredQuizzes = quizzes.filter(q =>
-    q.toLowerCase().includes(search.toLowerCase())
+  const filteredQuizzes = quizzes.filter((title) =>
+    title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleQuizSelect = (title) => {
