@@ -3,12 +3,16 @@ import React from "react";
 const popularQuizzes = [
   {
     title: "Twilight",
+    cover: "https://covers.openlibrary.org/b/id/8226191-L.jpg",
   },
 ];
 
 export default function Home() {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
+    <div
+      className="max-w-5xl mx-auto px-6 py-12 min-h-screen"
+      style={{ backgroundColor: "#d7e6d0" }}
+    >
       {/* Hero Section */}
       <section className="text-center mb-16">
         <h1 className="text-5xl font-serif font-bold mb-4">Epilogue</h1>
@@ -31,7 +35,7 @@ export default function Home() {
             <a
               key={title}
               href={`/quiz?book=${encodeURIComponent(title)}`}
-              className="block border rounded shadow hover:shadow-lg transition p-4 max-w-xs mx-auto"
+              className="block border rounded shadow hover:shadow-lg transition p-4 max-w-xs mx-auto bg-white"
             >
               <img
                 src={cover}
