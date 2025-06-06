@@ -1,1 +1,6 @@
-import React from "react"; import ReactDOM from "react-dom/client"; ReactDOM.createRoot(document.getElementById("root")).render(<h1>Hello, Epilogue!</h1>);
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Quiz from "./Quiz";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Quiz />);
