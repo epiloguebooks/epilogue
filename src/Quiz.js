@@ -115,8 +115,13 @@ function useQuery() {
 
 export default function Quiz() {
   const query = useQuery();
-  const book = query.get('book');
-  const questions = quizzes[book];
+  const rawBook = query.get('book');
+
+  const normalizedBook = Object.keys(quizzes).find(
+    title => title.toLowerCase() === rawBook?.toLowerCase()
+  );
+
+  const questions = quizzes[normalizedBook];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -124,8 +129,8 @@ export default function Quiz() {
 
   if (!questions) {
     return (
-      <div className="p-6 text-center text-red-500">
-        No quiz found for <strong>{book}</strong>. Please try another.
+      <div className="p-6 text-center text-red-600 font-semibold">
+        No quiz found for "<strong>{rawBook}</strong>". Please check the title and try again.
       </div>
     );
   }
@@ -145,20 +150,23 @@ export default function Quiz() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto text-center">
+      <h1 className="text-2xl font-bold mb-4">{normalizedBook} Quiz</h1>
       {showScore ? (
-        <h2 className="text-xl font-bold">You scored {score} out of {questions.length}!</h2>
+        <div className="text-lg font-semibold">
+          You scored {score} out of {questions.length}!
+        </div>
       ) : (
         <div>
-          <h3 className="text-lg font-semibold mb-2">
-            Question {currentQuestion + 1}/{questions.length}
-          </h3>
+          <h2 className="text-lg font-medium mb-2">
+            Question {currentQuestion + 1} of {questions.length}
+          </h2>
           <p className="mb-4">{questions[currentQuestion].question}</p>
-          <div className="grid gap-2">
-            {questions[currentQuestion].options.map((option, idx) => (
+          <div className="grid gap-3">
+            {questions[currentQuestion].options.map((option, index) => (
               <button
-                key={idx}
+                key={index}
                 onClick={() => handleAnswer(option)}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
               >
                 {option}
               </button>
