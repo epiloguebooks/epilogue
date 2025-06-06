@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home';
-import Quiz from './Quiz';
 import QuizList from './QuizList';
+import Quiz from './Quiz';
 import NavBar from './NavBar';
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/quiz" element={<Quiz />} />
         <Route path="/quizzes" element={<QuizList />} />
+        <Route path="/quiz" element={<Quiz />} />
       </Routes>
     </Router>
   );
