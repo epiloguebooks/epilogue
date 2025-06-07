@@ -34,7 +34,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="auth-container" style={{ padding: "2rem", maxWidth: "400px", margin: "auto" }}>
+    <div style={{ padding: "2rem", maxWidth: "400px", margin: "auto" }}>
       <h2>{isRegistering ? "Sign Up" : "Login"}</h2>
       <form onSubmit={handleAuth}>
         <input
