@@ -5,7 +5,7 @@ import Home from './Home';
 import QuizList from './QuizList';
 import Quiz from './Quiz';
 import NavBar from './NavBar';
-import Auth from './Auth'; // 👈 Add this import
+import Auth from './Auth'; //
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/quizzes" element={<QuizList />} />
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/auth" element={<Auth />} /> {/* 👈 New Auth route */}
+        <Route path="/auth" element={<Auth />} /> {/* New Auth route */}
       </Routes>
     </Router>
   );
